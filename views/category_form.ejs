@@ -1,0 +1,23 @@
+<%- include('../views/header.ejs') %>
+
+<h2><%= title %></h2>
+
+<form method="post" role="form">
+  <div class="form-group">
+    <label for="name">Name</label>
+
+    <input type="text" class="form-control" id="name"
+     name="name" placeholder="Category name" required value="<%= undefined === category ? '' : category.name %>">
+  </div>
+  <div class="form-group">
+    <label for="description">Entry description</label>
+    <textarea class="form-control" id="description" 
+     name="description" placeholder="Write description category." rows="5" required value="<%= undefined === category ? '' : category.description %>">
+    </textarea>
+  </div>
+  <div class="form-group">
+    <input type="submit" value="Post category" class="btn btn-primary">
+  </div>
+</form>
+
+<%- include('../views/footer.ejs') %>

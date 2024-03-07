@@ -1,0 +1,22 @@
+<%- include('../views/header.ejs') %>
+
+  <h1>Welcome to BikeShop!</h1>
+
+  <% categorys.forEach(function(category) { %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a href="<%= category.url %>">
+          <%= category.name %>
+        </a>
+      </div>
+    
+        <div class="panel-body">
+          <%= category.description %>
+        </div>
+      
+    </div>
+
+    <% }) %>
+
+      <%- include('../views/footer.ejs') %>

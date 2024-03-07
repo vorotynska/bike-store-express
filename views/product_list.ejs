@@ -1,0 +1,40 @@
+<%- include('../views/header.ejs') %>
+  
+  <h1>Bikes</h1>
+  <p>From bikes designed to fly over pavement to off-road bikes 
+    built to conquer any trail, we have a bike built to suit your 
+    needs. Shop our selection from top brands like Trek, Electra, and more!
+  </p>
+  <hr>
+  <% if (product_list.length) { %>
+    <% product_list.forEach(function(product) { %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="text-muted pull-right">
+            <h5>Trek</h5>
+          </div>
+        </div>
+        <div class="panel-body">
+          <h4><a href="<%= product.url %>"><%= product.name %></a></h4>  
+        </div>
+        <div class="panel-body">
+          <p>
+            Category: 
+            <% product.category.forEach(function(category, index) { %>
+              <a href="<%= category.url %>"><%= category.name %></a>
+              <% if (index < product.category.length - 1) { %>
+                |,&nbsp;
+              <% } %>
+            <% }) %>
+          </p>
+        </div>
+        <div class="panel-body">
+          <%= product.price %>
+        </div>
+      </div>
+      <hr>
+      <% }) %>
+        <% } else { %>
+          No products! <a href="/product/create">Add one!</a>
+          <% } %>
+          <%- include('../views/footer.ejs') %>

@@ -1,0 +1,40 @@
+<%- include('../views/header.ejs') %>
+
+<h2>Delete Category: <%= category.name %></h2>
+
+<% if (category_products.length) { %>
+    <p>Delete the following products before attempting to delete this category.</p>
+    <h4>Products</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>NumberInStock</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% category_products.forEach(product => { %>
+                <tr>
+                    <td>
+                        <a href="<%= product.url %>">
+                            <%= product.name %>
+                        </a>
+                    </td>
+                    <td><%= product.price %></td>
+                    <td><%= product.numberInStock %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>Do you really want to delete this Category?</p>
+    <form method="POST">
+        <div class="form-group">
+            <input id="id" class="form-control" type="hidden" name="id" value="<%= category._id %>">
+        </div>
+        <button class="btn btn-primary" type="submit">Delete</button>
+    </form>
+<% }; %>
+
+<%- include('../views/footer.ejs') %>

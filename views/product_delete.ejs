@@ -1,0 +1,41 @@
+<%- include('../views/header.ejs') %>
+
+
+<h3>Delete: <%= product.name %></h3>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= product.name %>
+      </div>
+
+      <div class="panel-body">
+        <%= product.price %>
+      </div>
+      <div class="panel-body">
+        <%= product.numberInStock %>
+      </div>
+      <div class="panel-body">
+        <p>
+          Category: 
+          <% product.category.forEach(function(category, index) { %>
+            <a href="<%= category.url %>"><%= category.name %></a>
+            <% if (index < product.category.length - 1) { %>
+              |,&nbsp;
+            <% } %>
+          <% }) %>
+        </p>
+      </div>
+      <div class="panel-body">
+        <%= product.description %>
+      </div>
+    </div>
+    
+    <p>Do you really want to delete this Product?</p>
+
+    <form method="POST">
+      <div class="form-group">
+          <input id="id" class="form-control" type="hidden" name="id" value="<%= product._id %>">
+      </div>
+      <button class="btn btn-primary" type="submit">Delete</button>
+    </form>
+     

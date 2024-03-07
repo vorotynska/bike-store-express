@@ -1,0 +1,34 @@
+<%- include('../views/header.ejs') %>
+
+<h1><%= category.name %></h1>
+<h5><%= category.description %></>
+
+<h3>Products</h3>
+<% if (category_products.length) { %>
+  <% category_products.forEach(function(product) { %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a href="<%= product.url %>">
+          <%= product.name %>
+        </a>
+      </div>
+
+      <div class="panel-body">
+        <strong>Price: </strong> <%= product.price %>
+      </div>
+      <div class="panel-body">
+         <strong>NumberInStock: </strong><%= product.numberInStock %>
+         </div>
+      </div>
+
+  <% }) %>
+<% } else { %>
+  <p>This category has no products.</p>
+  <% } %>
+
+<hr>
+<p><a href="<%= category.url %>/delete">Delete category</a></p>
+<p><a href="<%= category.url %>/update">Update category</a></p>
+
+<%- include('../views/footer.ejs') %>

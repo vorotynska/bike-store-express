@@ -1,0 +1,37 @@
+<%- include('../views/header.ejs') %>
+
+
+<h3>Product</h3>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= product.name %>
+      </div>
+
+      <div class="panel-body">
+        <%= product.price %>
+      </div>
+      <div class="panel-body">
+        <%= product.numberInStock %>
+      </div>
+      <div class="panel-body">
+        <p>
+          Category: 
+          <% product.category.forEach(function(category, index) { %>
+            <a href="<%= category.url %>"><%= category.name %></a>
+            <% if (index < product.category.length - 1) { %>
+              |,&nbsp;
+            <% } %>
+          <% }) %>
+        </p>
+      </div>
+      <div class="panel-body">
+        <%= product.description %>
+      </div>
+    </div>
+
+<hr>
+<p><a href="<%= product.url %>/delete">Delete product</a></p>
+<p><a href="<%= product.url %>/update">Update product</a></p>
+
+<%- include('../views/footer.ejs') %>
