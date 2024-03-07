@@ -5,10 +5,20 @@ const {
     body,
     validationResult
 } = require("express-validator");
+const {
+    validateCategory
+} = require("./validationMiddleware"); // Импортируем middleware для валидации
 
 const {
     all
 } = require("../routes");
+
+const getCategoryParams = (body) => {
+    return {
+        name: body.name,
+        description: body.description
+    }
+}
 
 exports.index = asyncHandler(async (req, res, next) => {
     let categorys = await Category.find()
@@ -62,12 +72,7 @@ exports.category_create_get = asyncHandler(async (req, res, next) => {
 
 exports.category_create_post = [
     // Validate and sanitize the name field.
-    body("name", "Category name must contain at least 3 characters")
-    .trim()
-    .isLength({
-        min: 3
-    })
-    .escape(),
+    validateCategory,
 
     // Process request after validation and sanitization.
     asyncHandler(async (req, res, next) => {
@@ -75,10 +80,8 @@ exports.category_create_post = [
         const errors = validationResult(req);
 
         // Create a catgory object with escaped and trimmed data.
-        const category = new Category({
-            name: req.body.name,
-            description: req.body.description
-        });
+        const categoryParams = getCategoryParams(req.body);
+        const category = new Category(categoryParams);
 
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values/error messages.
@@ -173,12 +176,7 @@ exports.category_update_get = asyncHandler(async (req, res, next) => {
 // Handle Category update on POST.
 exports.category_update_post = [
     // Validate and sanitize the name field.
-    body("name", "Category name must contain at least 3 characters")
-    .trim()
-    .isLength({
-        min: 3
-    })
-    .escape(),
+    validateCategory,
 
     // Process request after validation and sanitization.
     asyncHandler(async (req, res, next) => {

@@ -5,6 +5,10 @@ const {
     body,
     validationResult
 } = require("express-validator");
+const {
+    validateCategory,
+    categoryValidationRules
+} = require("./validationMiddleware"); // Импортируем middleware для валидации
 const product = require("../models/product");
 
 
@@ -69,36 +73,8 @@ exports.product_create_post = [
     },
 
     // Validate and sanitize fields.
-    body("name", "Name must not be empty.")
-    .trim()
-    .isLength({
-        min: 1,
-        max: 50
-    })
-    .escape(),
-    body("description", "Description must not be empty.")
-    .trim()
-    .isLength({
-        min: 1,
-        max: 300
-    })
-    .escape(),
-    body("price", "Product cannot have a negative cost")
-    .trim()
-    .isInt().withMessage('Price must be a number')
-    .isLength({
-        min: 1,
-        max: 10
-    })
-    .escape(),
-    body("numberInStock", "Stock cannot have a negative number of products")
-    .trim()
-    .isInt().withMessage('NumberInStock must be a number')
-    .isLength({
-        min: 1,
-        max: 10
-    })
-    .escape(),
+    validateCategory,
+    categoryValidationRules,
     body("category.*").escape(),
     // Process request after validation and sanitization.
 
@@ -208,34 +184,8 @@ exports.product_update_post = [
     },
 
     // Validate and sanitize fields.
-    body("name", "Name must not be empty.")
-    .trim()
-    .isLength({
-        min: 1
-    })
-    .escape(),
-    body("description", "Description must not be empty.")
-    .trim()
-    .isLength({
-        min: 1
-    })
-    .escape(),
-    body("price", "Product cannot have a negative cost")
-    .trim()
-    .isInt().withMessage('Price must be a number')
-    .isLength({
-        min: 1,
-        max: 10
-    })
-    .escape(),
-    body("numberInStock", "Stock cannot have a negative number of products")
-    .trim()
-    .isInt().withMessage('NumberInStock must be a number')
-    .isLength({
-        min: 1,
-        max: 10
-    })
-    .escape(),
+    validateCategory,
+    categoryValidationRules,
     body("category.*").escape(),
 
     // Process request after validation and sanitization.
